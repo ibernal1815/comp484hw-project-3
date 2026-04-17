@@ -5,20 +5,20 @@
    ============================================= */
 
 :root {
-  --bg:         #0a0c10;
-  --surface:    #0f1318;
-  --border:     #1e2a38;
-  --accent:     #00e5ff;
-  --accent-dim: #007b8a;
-  --green:      #39ff6a;
-  --yellow:     #f5c518;
-  --red:        #ff4c4c;
-  --text:       #c8d6e5;
-  --text-dim:   #4a6070;
+  --bg:         #111418;
+  --surface:    #181c22;
+  --border:     #2a3340;
+  --accent:     #5ba8c4;
+  --accent-dim: #3a6e85;
+  --green:      #4caf7d;
+  --yellow:     #c9a84c;
+  --red:        #c05c5c;
+  --text:       #a8bcc8;
+  --text-dim:   #4d6070;
   --mono:       'Share Tech Mono', monospace;
   --sans:       'Rajdhani', sans-serif;
-  --glow:       0 0 8px rgba(0, 229, 255, 0.4);
-  --glow-strong: 0 0 20px rgba(0, 229, 255, 0.6);
+  --glow:       0 0 6px rgba(91, 168, 196, 0.2);
+  --glow-strong: 0 0 14px rgba(91, 168, 196, 0.3);
 }
 
 /* ── Reset ─────────────────────────────────── */
@@ -32,8 +32,8 @@
 body {
   background-color: var(--bg);
   background-image:
-    radial-gradient(ellipse at 20% 20%, rgba(0, 229, 255, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 80%, rgba(57, 255, 106, 0.03) 0%, transparent 60%);
+    radial-gradient(ellipse at 20% 20%, rgba(91, 168, 196, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(76, 175, 125, 0.02) 0%, transparent 60%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -53,8 +53,8 @@ body {
     to bottom,
     transparent 0px,
     transparent 3px,
-    rgba(0, 0, 0, 0.08) 3px,
-    rgba(0, 0, 0, 0.08) 4px
+    rgba(0, 0, 0, 0.04) 3px,
+    rgba(0, 0, 0, 0.04) 4px
   );
   z-index: 100;
 }
@@ -226,7 +226,7 @@ body {
 #timer-button:hover {
   background: rgba(57, 255, 106, 0.08);
   border-color: var(--green);
-  box-shadow: 0 0 8px rgba(57, 255, 106, 0.4);
+  box-shadow: 0 0 6px rgba(76, 175, 125, 0.25);
   color: #fff;
 }
 
@@ -243,7 +243,7 @@ body {
   border-radius: 3px;
   padding: 16px 20px;
   margin-bottom: 24px;
-  box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.04);
+  box-shadow: inset 0 0 20px rgba(91, 168, 196, 0.03);
   animation: slideDown 0.25s ease both;
 }
 
