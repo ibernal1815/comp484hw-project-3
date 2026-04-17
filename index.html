@@ -47,6 +47,24 @@
           </button>
         </div>
 
+        <!-- Timer Status Panel -->
+        <div id="timer-status">
+          <div class="timer-row">
+            <span class="timer-label">TIMER</span>
+            <span id="timer-state" class="state-badge state-idle">● IDLE</span>
+            <span class="timer-hint">click to start &nbsp;·&nbsp; double-click to stop</span>
+          </div>
+          <div class="timer-row">
+            <span class="timer-label">FLASHES</span>
+            <span id="flash-count">0</span>
+          </div>
+          <div class="timer-row">
+            <span class="timer-label">ELAPSED</span>
+            <span id="timer-elapsed">00:00</span>
+          </div>
+          <div id="timer-bar-track"><div id="timer-bar-fill"></div></div>
+        </div>
+
         <!-- Status Output Div — Initially hidden -->
         <div id="status-output" class="hidden">
           <div class="status-header">
