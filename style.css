@@ -1,0 +1,370 @@
+/* =============================================
+   COMP 484 — Status Manager
+   Theme: Dark Terminal / Cybersecurity
+   Fonts: Share Tech Mono + Rajdhani
+   ============================================= */
+
+:root {
+  --bg:         #0a0c10;
+  --surface:    #0f1318;
+  --border:     #1e2a38;
+  --accent:     #00e5ff;
+  --accent-dim: #007b8a;
+  --green:      #39ff6a;
+  --yellow:     #f5c518;
+  --red:        #ff4c4c;
+  --text:       #c8d6e5;
+  --text-dim:   #4a6070;
+  --mono:       'Share Tech Mono', monospace;
+  --sans:       'Rajdhani', sans-serif;
+  --glow:       0 0 8px rgba(0, 229, 255, 0.4);
+  --glow-strong: 0 0 20px rgba(0, 229, 255, 0.6);
+}
+
+/* ── Reset ─────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Body & Background ──────────────────────── */
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(0, 229, 255, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(57, 255, 106, 0.03) 0%, transparent 60%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  color: var(--text);
+  padding: 2rem;
+  overflow-x: hidden;
+}
+
+/* ── CRT scanline overlay ──────────────────── */
+.scanline {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  z-index: 100;
+}
+
+/* ── Noise texture ─────────────────────────── */
+.noise {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+  z-index: 99;
+}
+
+/* ── App Container ─────────────────────────── */
+#app-container {
+  width: 100%;
+  max-width: 640px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, 0.06),
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+  animation: fadeIn 0.6s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Terminal Chrome ───────────────────────── */
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(0,0,0,0.3);
+  border-bottom: 1px solid var(--border);
+  border-radius: 6px 6px 0 0;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.dot.red    { background: #ff5f57; }
+.dot.yellow { background: #febc2e; }
+.dot.green  { background: #28c840; }
+
+.terminal-label {
+  margin-left: 8px;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+
+/* ── Terminal Body ─────────────────────────── */
+.terminal-body {
+  padding: 28px 32px 24px;
+}
+
+/* ── Prompt line ───────────────────────────── */
+.prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.prompt-symbol {
+  color: var(--green);
+  font-size: 1rem;
+}
+
+.prompt-cmd {
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.cursor-blink {
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Main Title ────────────────────────────── */
+#main-title {
+  font-family: var(--sans);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+#main-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: var(--glow);
+}
+
+/* ── Control Panel ─────────────────────────── */
+#control-panel {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+#control-panel a,
+#control-panel button {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  padding: 10px 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Toggle button — outlined accent */
+#toggle-button {
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent-dim);
+}
+
+#toggle-button:hover {
+  background: rgba(0, 229, 255, 0.08);
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+  color: #fff;
+}
+
+/* Timer button — green variant */
+#timer-button {
+  color: var(--green);
+  background: transparent;
+  border: 1px solid rgba(57, 255, 106, 0.3);
+}
+
+#timer-button:hover {
+  background: rgba(57, 255, 106, 0.08);
+  border-color: var(--green);
+  box-shadow: 0 0 8px rgba(57, 255, 106, 0.4);
+  color: #fff;
+}
+
+.btn-bracket {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* ── Status Output ─────────────────────────── */
+#status-output {
+  background: rgba(0, 229, 255, 0.03);
+  border: 1px solid var(--accent-dim);
+  border-left: 3px solid var(--accent);
+  border-radius: 3px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.04);
+  animation: slideDown 0.25s ease both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.status-icon {
+  font-size: 0.9rem;
+}
+
+#status-output p {
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+#status-output span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+  padding: 3px 0;
+  border-top: 1px dashed var(--border);
+}
+
+#status-output span::before {
+  content: '⟩ timestamp: ';
+  color: var(--accent-dim);
+}
+
+/* ── List Section ──────────────────────────── */
+.list-section {
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.section-marker {
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+#item-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#item-list li {
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s, background 0.2s;
+  /* color will be set to blue by Task 9 JS */
+}
+
+#item-list li:hover {
+  border-color: var(--border);
+  background: rgba(255,255,255,0.04);
+}
+
+.li-marker {
+  color: var(--accent-dim);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* ── Footer ────────────────────────────────── */
+.footer-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.divider {
+  color: var(--border);
+}
+
+#footer-time {
+  color: var(--accent-dim);
+  margin-left: auto;
+}
+
+/* ── Task 2: The Hiding Class ──────────────── */
+.hidden {
+  display: none;
+}
+
+/* ── Task 7: Yellow title state ────────────── */
+/* (Applied via JS inline style — just making sure
+   the transition is smooth via the rule above)   */
