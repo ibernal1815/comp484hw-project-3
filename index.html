@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Status Manager Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="scanline"></div>
+    <div class="noise"></div>
+
+    <div id="app-container">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-label">status_manager_v1.0 — comp484</span>
+      </div>
+
+      <div class="terminal-body">
+        <div class="prompt-line">
+          <span class="prompt-symbol">$</span>
+          <span class="prompt-cmd">init system</span>
+          <span class="cursor-blink">_</span>
+        </div>
+
+        <!-- Main Title (Task 1) -->
+        <h1 id="main-title">Status Manager</h1>
+
+        <div id="control-panel">
+          <!-- Toggle Anchor Tag -->
+          <a id="toggle-button" href="#">
+            <span class="btn-bracket">[</span>
+            Click to Update Status
+            <span class="btn-bracket">]</span>
+          </a>
+
+          <!-- Timer Button -->
+          <button id="timer-button">
+            <span class="btn-bracket">[</span>
+            Start Timer
+            <span class="btn-bracket">]</span>
+          </button>
+        </div>
+
+        <!-- Status Output Div — Initially hidden -->
+        <div id="status-output" class="hidden">
+          <div class="status-header">
+            <span class="status-icon">◈</span>
+            <span>SYSTEM STATUS</span>
+            <span class="status-icon">◈</span>
+          </div>
+          <p>Current Status Information:</p>
+          <!-- Task 8 will append elements here -->
+        </div>
+
+        <!-- Unordered List (Task 9) -->
+        <div class="list-section">
+          <h2><span class="section-marker">//</span> Item List</h2>
+          <ul id="item-list">
+            <li><span class="li-marker">›</span> List Item One</li>
+            <li><span class="li-marker">›</span> List Item Two</li>
+            <li><span class="li-marker">›</span> List Item Three</li>
+            <li><span class="li-marker">›</span> List Item Four</li>
+            <li><span class="li-marker">›</span> List Item Five</li>
+          </ul>
+        </div>
+
+        <div class="footer-line">
+          <span>COMP484</span>
+          <span class="divider">|</span>
+          <span>DOM / BOM PROJECT</span>
+          <span class="divider">|</span>
+          <span id="footer-time"></span>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      // Footer clock
+      function updateClock() {
+        document.getElementById("footer-time").textContent = new Date().toLocaleTimeString();
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+    </script>
+  </body>
+</html>
