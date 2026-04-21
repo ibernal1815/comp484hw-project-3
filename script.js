@@ -17,6 +17,7 @@ const timerState   = document.getElementById("timer-state");
 const flashCount   = document.getElementById("flash-count");
 const timerElapsed = document.getElementById("timer-elapsed");
 const timerBarFill = document.getElementById("timer-bar-fill");
+const stopButton   = document.getElementById("stop-button");
 
 // Secondary counters (not part of assignment, just UI feedback)
 let flashCounter   = 0;
@@ -71,13 +72,15 @@ toggleButton.addEventListener("click", toggleStatus);
 
 function updateTimerUI(running) {
   if (running) {
-    timerState.textContent = "● RUNNING";
-    timerState.className   = "state-badge state-running";
-    timerButton.innerHTML  = '<span class="btn-bracket">[</span> Stop Timer <span class="btn-bracket">]</span>';
+    timerState.textContent  = "● RUNNING";
+    timerState.className    = "state-badge state-running";
+    timerButton.disabled    = true;
+    stopButton.disabled     = false;
   } else {
-    timerState.textContent = "● IDLE";
-    timerState.className   = "state-badge state-idle";
-    timerButton.innerHTML  = '<span class="btn-bracket">[</span> Start Timer <span class="btn-bracket">]</span>';
+    timerState.textContent  = "● IDLE";
+    timerState.className    = "state-badge state-idle";
+    timerButton.disabled    = false;
+    stopButton.disabled     = true;
   }
 }
 
@@ -118,4 +121,5 @@ function stopFlashing() {
 }
 
 timerButton.addEventListener("click", startFlashing);
-timerButton.addEventListener("dblclick", stopFlashing);
+timerButton.addEventListener("dblclick", stopFlashing); // kept for Task 10 requirement
+stopButton.addEventListener("click", stopFlashing);
