@@ -58,7 +58,7 @@ function toggleStatus(e) {
   statusOutput.classList.toggle("hidden");
 
   if (!statusOutput.classList.contains("hidden")) {
-    mainTitle.style.backgroundColor = "#3d3010";
+    mainTitle.style.backgroundColor = "yellow";
     createTimestamp();
   } else {
     mainTitle.style.backgroundColor = "";
@@ -120,6 +120,17 @@ function stopFlashing() {
   updateTimerUI(false);
 }
 
-timerButton.addEventListener("click", startFlashing);
-timerButton.addEventListener("dblclick", stopFlashing); // kept for Task 10 requirement
+let clickTimer = null;
+
+timerButton.addEventListener("click", function () {
+  // Delay single-click action so dblclick can cancel it
+  clickTimer = setTimeout(startFlashing, 200);
+});
+
+timerButton.addEventListener("dblclick", function () {
+  // Cancel the pending single-click, then stop
+  clearTimeout(clickTimer);
+  stopFlashing();
+});
+
 stopButton.addEventListener("click", stopFlashing);
