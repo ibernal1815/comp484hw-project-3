@@ -546,5 +546,9 @@ h2 {
 }
 
 /* ── Task 7: Yellow title state ────────────── */
-/* (Applied via JS inline style — just making sure
-   the transition is smooth via the rule above)   */
+/* JS sets style.backgroundColor = "yellow" per rubric.
+   We make the text dark so it stays readable on yellow. */
+#main-title[style*="yellow"] {
+  color: #1a1a1a;
+  text-shadow: none;
+}
